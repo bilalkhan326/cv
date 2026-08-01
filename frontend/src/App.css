@@ -1,0 +1,42 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.hero-ambient {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-ambient::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.2), transparent 45%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+@keyframes floatGlow {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-8px) scale(1.02); }
+}
+
+.hero-card {
+  animation: floatGlow 5.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-card {
+    animation: none;
+  }
+}

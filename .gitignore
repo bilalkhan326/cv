@@ -1,0 +1,21 @@
+.env
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.test.local
+**/.env.production.local
+
+node_modules
+**/node_modules
+dist
+**/dist
+coverage
+**/coverage
+.vite
+**/.vite
+
+# Editor and OS files
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
