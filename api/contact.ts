@@ -1,15 +1,7 @@
-import type { Request, Response } from 'express'
-import express from 'express'
-import cors from 'cors'
 import dotenv from 'dotenv'
-import serverless from 'serverless-http'
 import nodemailer from 'nodemailer'
 
 dotenv.config()
-
-const app = express()
-app.use(cors())
-app.use(express.json())
 
 const sendEmailNotification = async ({ name, email, message }: { name: string; email: string; message: string }) => {
   const smtpHost = process.env.SMTP_HOST
@@ -44,8 +36,28 @@ const sendEmailNotification = async ({ name, email, message }: { name: string; e
   return { success: true, skipped: false }
 }
 
-app.post('/api/contact', async (req: Request, res: Response) => {
-  const { name, email, message } = req.body as { name?: string; email?: string; message?: string }
+const readBody = (body: unknown) => {
+  if (!body) {
+    return {}
+  }
+
+  if (typeof body === 'string') {
+    try {
+      return JSON.parse(body) as { name?: string; email?: string; message?: string }
+    } catch {
+      return {}
+    }
+  }
+
+  return body as { name?: string; email?: string; message?: string }
+}
+
+export default async function handler(req: { method?: string; body?: unknown }, res: { status: (code: number) => { json: (value: unknown) => void } }) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ success: false, message: 'Method not allowed.' })
+  }
+
+  const { name, email, message } = readBody(req.body)
 
   if (!name || !email || !message) {
     return res.status(400).json({ success: false, message: 'Please provide name, email, and message.' })
@@ -67,7 +79,4 @@ app.post('/api/contact', async (req: Request, res: Response) => {
     console.error('Failed to send email notification:', error)
     return res.status(200).json({ success: true, message: 'Thanks! Your message has been received. I'll get back to you soon.' })
   }
-})
-
-export const handler = serverless(app)
-export default app
+}
