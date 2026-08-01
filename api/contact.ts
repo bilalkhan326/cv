@@ -71,12 +71,12 @@ export default async function handler(req: { method?: string; body?: unknown }, 
     const notification = await sendEmailNotification({ name, email, message })
 
     if (notification.success) {
-      return res.status(200).json({ success: true, message: 'Thanks! Your message has been received. I'll get back to you soon.' })
+      return res.status(200).json({ success: true, message: "Thanks! Your message has been received. I'll get back to you soon." })
     }
 
-    return res.status(200).json({ success: true, message: 'Thanks! Your message has been received. I'll get back to you soon.' })
+    return res.status(200).json({ success: true, message: "Thanks! Your message has been received. I'll get back to you soon." })
   } catch (error) {
     console.error('Failed to send email notification:', error)
-    return res.status(200).json({ success: true, message: 'Thanks! Your message has been received. I'll get back to you soon.' })
+    return res.status(200).json({ success: true, message: "Thanks! Your message has been received. I'll get back to you soon." })
   }
 }
