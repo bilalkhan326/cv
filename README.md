@@ -34,5 +34,5 @@ Copy [.env.example](.env.example) to .env and adjust values as needed.
 
 ## Deployment
 1. Deploy the repository from the root folder to Vercel.
-2. Vercel will build the frontend from `frontend/` and route `/api/contact` to the backend function.
+2. Vercel will build the frontend from `frontend/` and serve the contact endpoint from the root `api/contact.ts` function.
 3. Set SMTP environment variables in the Vercel project settings instead of committing them to git.

@@ -1,17 +1,13 @@
 {
   "version": 2,
-  "buildCommand": "npm install --prefix frontend && npm install --prefix backend && npm run --prefix frontend build",
+  "buildCommand": "npm install --prefix frontend && npm run --prefix frontend build",
   "outputDirectory": "frontend/dist",
   "functions": {
-    "backend/api/**/*.ts": {
+    "api/contact.ts": {
       "maxDuration": 10
     }
   },
   "rewrites": [
-    {
-      "source": "/api/contact",
-      "destination": "/backend/api/contact"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
